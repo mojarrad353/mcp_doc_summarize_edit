@@ -50,3 +50,4 @@ uv run mcp_server.py
 3. **In a new terminal, run the CLI client:**
 uv run main.py
 
+Add the OpenAI API key and model for OpenAI configuration
