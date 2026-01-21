@@ -1,0 +1,6 @@
+fastmcp == 2.14.2
+uv == 0.9.11
+streamlit == 1.53.0
+openai
+anthropic
+prompt-toolkit>=3.0.51
