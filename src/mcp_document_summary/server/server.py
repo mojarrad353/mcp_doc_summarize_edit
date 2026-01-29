@@ -1,12 +1,16 @@
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 from mcp.server.fastmcp.prompts import base
+from ..config import settings
+from ..logger import setup_logger
+
+logger = setup_logger(__name__)
 
 # Create MCP server
 mcp = FastMCP(
     name="MCP server for document summarization and word replacement",
     instructions="Read a text document and replace words in it.", 
-    log_level="ERROR"
+    log_level=settings.log_level
 )
 
 # In-memory text storage 
@@ -90,4 +94,4 @@ def rephrase_document(
 
 # Run the MCP server using streamable-http transport
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")

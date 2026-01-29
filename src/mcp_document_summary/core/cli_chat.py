@@ -3,9 +3,11 @@ from mcp.types import Prompt, PromptMessage, EmbeddedResource
 # Updated Import for OpenAI Types
 from openai.types.chat import ChatCompletionMessageParam
 
-from core.chat import Chat
-from core.openai import OpenAIClient
-from mcp_client import MCPClient
+from openai.types.chat import ChatCompletionMessageParam
+
+from .chat import Chat
+from .openai import OpenAIClient
+from ..client.mcp_client import MCPClient
 
 
 class CliChat(Chat):

@@ -4,6 +4,7 @@ from typing import Optional, Any
 from contextlib import AsyncExitStack
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
+from mcp.client.sse import sse_client
 
 import json
 from pydantic import AnyUrl
@@ -12,29 +13,43 @@ from pydantic import AnyUrl
 class MCPClient:
     def __init__(
         self,
-        command: str,
-        args: list[str],
+        command: str = None,
+        args: list[str] = None,
         env: Optional[dict] = None,
+        url: str = None,
     ):
         self._command = command
-        self._args = args
+        self._args = args or []
         self._env = env
+        self._url = url
         self._session: Optional[ClientSession] = None
         self._exit_stack: AsyncExitStack = AsyncExitStack()
 
     async def connect(self):
-        server_params = StdioServerParameters(
-            command=self._command,
-            args=self._args,
-            env=self._env,
-        )
-        stdio_transport = await self._exit_stack.enter_async_context(
-            stdio_client(server_params)
-        )
-        _stdio, _write = stdio_transport
-        self._session = await self._exit_stack.enter_async_context(
-            ClientSession(_stdio, _write)
-        )
+        if self._url:
+            sse_transport = await self._exit_stack.enter_async_context(
+                sse_client(self._url)
+            )
+            _read, _write = sse_transport
+            self._session = await self._exit_stack.enter_async_context(
+                ClientSession(_read, _write)
+            )
+        elif self._command:
+            server_params = StdioServerParameters(
+                command=self._command,
+                args=self._args,
+                env=self._env,
+            )
+            stdio_transport = await self._exit_stack.enter_async_context(
+                stdio_client(server_params)
+            )
+            _stdio, _write = stdio_transport
+            self._session = await self._exit_stack.enter_async_context(
+                ClientSession(_stdio, _write)
+            )
+        else:
+            raise ValueError("Either command or url must be provided")
+            
         await self._session.initialize()
 
     def session(self) -> ClientSession:

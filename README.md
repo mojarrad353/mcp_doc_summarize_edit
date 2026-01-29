@@ -1,53 +1,96 @@
 # 📄 MCP For Document Summarization & Editing
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![MCP](https://img.shields.io/badge/MCP-FastMCP-success)
 
 ---
 
-## 📌 Project Overview
-
 The **MCP For Document Summarization & Editing** is a **Python-based MCP server** that enables users to interact with documents via a **command-line interface (CLI)**.
 
-The project demonstrates:
-- Building an MCP server using **FastMCP**
-- Reading document contents programmatically
-- Summarizing or rephrasing documents
-- Replacing specific words or phrases based on user requests
-- Handling CLI-driven interactions with MCP tools, resources, and prompts
+## Features
 
----
+- **Document Management**: Read, list, and edit documents.
+- **MCP Server**: FastMCP implementation.
+- **OpenAI Integration**: Summarize and rephrase documents using OpenAI models.
+- **CLI Chat**: Interactive command-line interface.
+- **Docker Support**: Containerized for easy deployment.
 
-## 🚀 Features
+## Project Structure
 
-- 📖 Read document contents by document ID  
-- ✏️ Replace words or phrases in documents  
-- 📝 Summarize or rephrase documents without changing meaning  
-- 🧰 MCP tools for document reading and editing  
-- 📦 MCP resources for listing and fetching documents  
-- 💻 CLI-based user interaction
-- 🔹 Use @ in CLI to show all available documents
-- 🔹 Use \ in CLI to view the already written rephrase prompt
----
+```text
+mcp_doc_summarize_edit/
+├── src/
+│   └── mcp_document_summary/
+│       ├── client/         # Client implementation
+│       ├── core/           # Core logic (Chat, OpenAI, CLI)
+│       ├── server/         # MCP Server implementation
+│       ├── config.py       # Configuration settings
+│       ├── logger.py       # Logging
+│       └── main.py         # Entry point
+├── tests/                  # Unit tests
+├── Dockerfile
+├── docker-compose.yml
+├── pyproject.toml
+└── README.md
+```
 
-## 🧑‍💻 Skills & Technologies
+## Prerequisites
 
-- **Programming Language:** Python  
-- **Protocol:** Model Context Protocol (MCP)  
-- **Framework:** FastMCP   
-- **Interface:** Command-Line Interface (CLI)
+- Python 3.10+
+- `uv` (recommended) or `pip`
+- OpenAI API Key
 
----
+## Setup
 
-## ▶️ How to Run the Project
+1. **Clone the repository**
+2. **Configure Environment**
+   Copy `.env.example` to `.env` and fill in your details:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` with your `OPENAI_API_KEY`.
 
-1. **Clone the repository:**
-git clone https://github.com/mojarrad353/mcp-doc-summarize-edit.git
+3. **Install Dependencies**
+   Using `uv`:
+   ```bash
+   uv sync
+   ```
 
-2. **Start the MCP server:**
-uv run mcp_server.py
+## Running the Application
 
-3. **In a new terminal, run the CLI client:**
-uv run main.py
+### Local Development
 
-Add the OpenAI API key and model for OpenAI configuration
+1. **Start the MCP Server** (Terminal 1)
+   ```bash
+   uv run python -m mcp_document_summary.server.server
+   ```
+   The server will start on `http://127.0.0.1:8000`.
+
+2. **Start the Client** (Terminal 2)
+   ```bash
+   uv run python -m mcp_document_summary.main --url http://127.0.0.1:8000/sse
+   ```
+
+### Docker
+Run with Docker Compose:
+```bash
+docker-compose up --build
+```
+
+## Testing
+
+Run unit tests:
+```bash
+uv run pytest
+```
+
+## Configuration
+
+Settings are managed via `.env` file and `src/mcp_document_summary/config.py`.
+- `OPENAI_API_KEY`: Your OpenAI API key.
+- `OPENAI_MODEL_NAME`: Model to use (default: gpt-4o).
+- `LOG_LEVEL`: Logging level (default: INFO).
+
+## License
+
+[License]

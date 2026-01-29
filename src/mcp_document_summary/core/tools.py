@@ -1,7 +1,7 @@
 import json
 from typing import Optional, List, Any
 from mcp.types import CallToolResult, TextContent
-from mcp_client import MCPClient
+from ..client.mcp_client import MCPClient
 
 from openai.types.chat import (
     ChatCompletion, 

@@ -1,17 +1,13 @@
 import os
-from dotenv import load_dotenv
 from openai import OpenAI
 from openai.types.chat import ChatCompletion
-
-# Load environment variables
-load_dotenv()
+from ..config import settings
 
 class OpenAIClient:
     def __init__(self, model: str, api_key: str = None):
-        self.client = OpenAI(api_key=api_key)
-        self.model = model
-        if not self.model:
-            raise ValueError("OPENAI_MODEL_NAME not found in .env file")
+        self.client = OpenAI(api_key=api_key or settings.openai_api_key)
+        self.model = model or settings.openai_model_name
+
 
     def add_user_message(self, messages: list, message):
         """Adds a user message or a list of tool results to the history."""

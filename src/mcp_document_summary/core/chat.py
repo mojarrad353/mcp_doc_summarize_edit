@@ -1,6 +1,6 @@
-from core.openai import OpenAIClient
-from mcp_client import MCPClient
-from core.tools import ToolManager
+from .openai import OpenAIClient
+from ..client.mcp_client import MCPClient
+from .tools import ToolManager
 from typing import List, Dict, Any
 
 class Chat:

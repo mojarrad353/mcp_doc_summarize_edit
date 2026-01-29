@@ -1,0 +1,9 @@
+services:
+  mcp-doc-summary:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+    environment:
+      - LOG_LEVEL=INFO
