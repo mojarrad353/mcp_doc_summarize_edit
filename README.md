@@ -1,6 +1,6 @@
 # 📄 MCP For Document Summarization & Editing
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![MCP](https://img.shields.io/badge/MCP-FastMCP-success)
 
 ---
