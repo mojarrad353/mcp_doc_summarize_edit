@@ -1,6 +1,6 @@
 # 📄 MCP For Document Summarization & Editing
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![MCP](https://img.shields.io/badge/MCP-FastMCP-success)
 
 ---
@@ -30,6 +30,7 @@ mcp_doc_summarize_edit/
 ├── tests/                  # Unit tests
 ├── Dockerfile
 ├── docker-compose.yml
+├── docker-compose.yml
 ├── pyproject.toml
 └── README.md
 ```
@@ -37,7 +38,7 @@ mcp_doc_summarize_edit/
 ## Prerequisites
 
 - Python 3.10+
-- `uv` (recommended) or `pip`
+- `uv` (required)
 - OpenAI API Key
 
 ## Setup
